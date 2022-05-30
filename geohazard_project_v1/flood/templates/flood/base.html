@@ -1,0 +1,252 @@
+{% load static %}
+<!doctype html>
+
+<html lang="en">
+
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'flood/asset/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'flood/asset/style.css' %}">
+
+    <!-- Font Awesome Icon -->
+    <script src="{% static 'flood/asset/fontawesome.js' %}"></script>
+    
+    <!-- Jquery JS -->
+    <script src="{% static 'flood/asset/jquery-3.4.1.min.js' %}"></script>
+
+    {% if title %}
+		  <title> Alabel GeoHazard Map - {{title}}</title>
+  	{% else %}
+  		<title> Alabel GeoHazard Map </title>
+  	{% endif %}
+
+  </head>
+
+  <body>
+    <!-- Desktop View -->
+    <nav class="desktop">
+
+      <ul>
+
+        <li><a href="">Home</a></li>
+
+        <li>
+
+          <a href="#">Maps <i class="fas fa-chevron-down"></i></a>
+
+          <ul class="nav-item-container">
+
+            <li class="nav-item"><a href="{% url 'flood' %}">Flood</a></li>
+            <li class="nav-item"><a href="{% url 'landslide' %}">Landslide</a></li>
+
+          </ul>
+
+        </li>
+
+        <li><a href="">Contacts</a></li>
+
+      </ul>
+
+    </nav>
+    
+    <!-- Button Show Hide Sidebar -->
+    <br>
+    <br>
+    <br>
+
+    <!-- Mobile View -->
+    <nav class="mobile">
+      <button id="bar" style="position: absolute;left: -50px;z-index: 100001;background-color: #7476c4;color: white;border:unset;width: 50px;height: 50px;box-shadow: 0px 0px 20px rgba(0,0,0,0.2);"><i class="fas fa-arrow-left"></i><i class="fas fa-arrow-right"></i></button>
+
+      <ul>
+
+        <li><a href="">Home</a></li>
+
+        <li id="dropdown">
+
+          <a href="#">Maps <i class="fas fa-chevron-down"></i></a>
+
+          <ul class="uldropdown">
+
+            <li class="nav-item"><a href="{% url 'flood' %}">Flood</a></li>
+            <li class="nav-item"><a href="{% url 'landslide' %}">Landslide</a></li>
+
+          </ul>
+
+        </li>
+
+        <li><a href="">Contacts</a></li>
+
+      </ul>
+
+    </nav>
+
+    <!-- Content -->
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-xl-8 col-lg-12">
+          <div class="card border-0">
+            <div class="card-body">
+            	{% block map %} {% endblock map %}
+              <!-- Map -->
+              <!-- <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2822.7806761080233!2d-93.29138368446431!3d44.96844997909819!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x52b32b6ee2c87c91%3A0xc20dff2748d2bd92!2sWalker+Art+Center!5e0!3m2!1sen!2sus!4v1514524647889" frameborder="0" style="border:0" allowfullscreen></iframe> -->
+          
+            </div>
+          </div>
+
+          <!-- Tab Content Bottom -->
+          <div class="card">
+            <div class="card-body" style="background-color: #7476c4;color: white;">
+              <div class="container">
+                <div class="row">
+                    <div class="col-12" style="width: 100%;">
+                      <ul class="nav nav-tabs nav-fill" role="tablist" style="display: flex;width: 100%;">
+                        <li class="nav-item">
+                          <a class="nav-link text-dark" data-toggle="tab" href="#duck" role="tab" aria-controls="duck" aria-selected="true">GUIDELINES</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link text-dark active" data-toggle="tab" href="#chicken" role="tab" aria-controls="chicken" aria-selected="false">EVACUATION PROCEDURES</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link text-dark" data-toggle="tab" href="#kiwi" role="tab" aria-controls="kiwi" aria-selected="false">ANNOUNCEMENTS</a>
+                        </li>
+                      </ul>
+                      
+                      <div class="tab-content mt-3">
+                        <div class="tab-pane" id="duck" role="tabpanel" aria-labelledby="duck-tab">
+                          {% block guidelines %}{% endblock guidelines %}          
+                        </div>
+                        <div class="tab-pane active" id="chicken" role="tabpanel" aria-labelledby="chicken-tab">
+                          <h4>Evacuation Areas:</h4>
+                          <h4 class="ml-4">-Municipal Gymnasium</h4>
+                          <h4 class="ml-4">-Alabel Central Integrated SPED Center</h4>
+                        </div>
+                        <div class="tab-pane" id="kiwi" role="tabpanel" aria-labelledby="kiwi-tab">
+                          <h6>Flooding Incident Simulation Exercise</h6>
+                          <small>Disyembre 29, 2021 sa Alabel Municipal Compound</small>
+                          <br>
+                          <br>
+                          <h6>Heavy Rainfall</h6>
+                          <small>Disyembre 03, 2021</small>
+                          <br>
+                          <br>
+                          <h6>Alabel MDRMMO Responders routinary Rapid Antigen Test</h6>
+                          <small>Nobyembre 16, 2021</small>
+                          <br>
+                          <br>
+                          <h6>Flood Rescue Operation sa Sitio Lanao Balot. Barangay Alegria</h6>
+                          <small>Nobyembre 03, 2021</small>
+                          <br>
+                        </div>
+                      </div>        
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-4 col-lg-12">
+          <div class="card border-0">
+            <div class="card-body text-center">
+              <button class="btn flood text-white form-control">{% block header %}{% endblock header %}</button>
+            </div>
+
+            <!-- Barangay -->
+            <div class="card-body mt-3">
+              <label>Barangay:</label> 
+              <select class="btn border text-white">
+                <option>ALEGRIA</option>
+                <option>BAGACAY</option>
+                <option>DATALANGGAS</option>
+                <option>DOMOLOK</option>
+                <option>KAWAS</option>
+                <option>LADOL</option>
+                <option>PAGASA</option>
+                <option>PARAISO</option>
+                <option>POBLACION</option>
+                <option>SPRING</option>
+                <option>TOKAWAL</option>
+              </select>
+            </div>
+
+            <div class="card-body mt-3">
+              <label>Susceptability:</label> <span class="susceptability text-white p-2">VERY HIGH SUSCEPTABILITY</span>
+            </div>
+          </div>
+          <div class="card mt-3">
+            <h5 class="text-center mt-4">{% block title %}{% endblock title %} SUSCEPTABILITY</h5>
+            <hr>
+            <table>
+              <tr>
+                <td class="p-2"><div style="background-color: #563b8c;width: 50px;height: 20px;"></div></td>
+                <td class="p-2">
+                  <h6>Very High</h6>
+                  <small>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,</small>
+                </td>
+              </tr>
+              <tr>
+                <td class="p-2"><div style="background-color: #783ee2;width: 50px;height: 20px;"></div></td>
+                <td class="p-2">
+                  <h6>High</h6>
+                  <small>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,</small>
+                </td>
+              </tr>
+              <tr>
+                <td class="p-2"><div style="background-color: #b16be3;width: 50px;height: 20px;"></div></td>
+                <td class="p-2">
+                  <h6>Moderate</h6>
+                  <small>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,</small>
+                </td>
+              </tr>
+              <tr>
+                <td class="p-2"><div style="background-color: #c3b3d4;width: 50px;height: 20px;"></div></td>
+                <td class="p-2">
+                  <h6>Low</h6>
+                  <small>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,</small>
+                </td>
+              </tr>
+            </table>
+          </div>
+
+          <div class="card mt-3">
+            <h5 class="mt-2" style="padding-left: 10px;">Legend:</h5>
+
+            <table>
+              <tr>
+                <td style="padding-left: 10px;">Main road</td>
+                <td style="padding-left: 10px;">Barangay center location Purok/Sitio location</td>
+              </tr>
+              <tr>
+                <td style="padding-left: 10px;">Track; trail</td>
+                <td style="padding-left: 10px;">Barangay</td>
+              </tr>
+              <tr>
+                <td style="padding-left: 10px;">River</td>
+                <td style="padding-left: 10px;">School</td>
+              </tr>
+              <tr>
+                <td style="padding-left: 10px;">Municipal boundary</td>
+                <td style="padding-left: 10px;"></td>
+              </tr>
+              <tr>
+                <td style="padding-left: 10px;">Contour(meter)</td>
+                <td style="padding-left: 10px;"></td>
+              </tr>
+    
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Script Function -->
+    <script src="{% static 'flood/asset/app.js' %}"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+</body>
+</html>
+

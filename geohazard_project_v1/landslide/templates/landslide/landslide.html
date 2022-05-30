@@ -1,0 +1,24 @@
+{% extends "flood/base.html" %}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+</head>
+<body>
+	{% block map %}
+			{{landslide_map | safe}}
+	{% endblock map %}
+
+	{% block header %} 
+		<p style="margin: 0;">LANDSLIDE</p>
+	{% endblock header %}
+
+	{% block title %} 
+		LANDSLIDE
+	{% endblock title %}
+
+</body>
+</html>

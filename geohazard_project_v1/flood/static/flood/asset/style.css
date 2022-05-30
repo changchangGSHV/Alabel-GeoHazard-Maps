@@ -1,0 +1,151 @@
+	.unique-title {
+		margin: 0;
+	}
+
+
+    /* Map */
+	iframe{
+		width: 100%;
+		height: 70vh;
+	}
+
+	/* Desktop */
+	.desktop{
+		width: 100%;
+		background-color: #7476c4;
+	}
+	.desktop ul {
+		text-align: right;
+	}
+	.desktop ul li {
+		list-style: none;
+		display: inline-block;
+		padding: 15px 30px;
+		position: relative;
+	}
+	.desktop ul li a{
+		text-decoration: none;
+		color: white;
+	}
+
+	.desktop ul li a:hover {
+		color: black;
+	}
+
+	.desktop ul li ul {
+		position: absolute;
+		left: -70px;
+		top: 100px;
+		background-color: #7476c4;
+		box-shadow: 0px 0px 20px rgba(0,0,0,0.2);
+		text-align: left;
+		padding: 20px;
+		transition: .5s;
+		opacity: 0;
+		visibility: hidden;
+		z-index: 1000;
+	}
+	.desktop ul li ul li a {
+		color: white;
+	}
+	.desktop ul li ul li a:hover {
+		color: black;
+	}
+	.desktop ul li:hover ul {
+		top: 50px;
+		opacity: 1;
+		visibility: visible;
+	}
+
+	/* Button show hide Sidebar and Mobile Sidabar*/
+	.mobile,#bar{
+		display: none;
+	}
+	.mobile{
+		position: fixed;
+		top: 0;
+		bottom: 0;
+		right: 0;
+		width: 15rem;
+		background-color: #7476c4;
+		transform: translateX(240px);
+		transition: .5s;
+		z-index: 10000;
+		opacity: 0.8;
+	}
+	.mobile ul{
+		padding-left: 10px;
+	}
+	.mobile ul li{
+		list-style: none;
+	}
+	.uldropdown{
+		height: 0;
+		overflow: hidden;
+		transition: .3s;
+	}
+	.mobile .hideshowdropdown {
+		height: 100px;
+	}
+	.mobile ul li a{
+		text-decoration: none;
+		color: white;
+		display: block;
+		margin: 20px 0px;
+	}
+
+	.mobile ul li a:hover {
+		color: black;
+	}
+
+	.navhideshow {
+		transform: translateX(0);
+	}
+	.flood{
+		
+		padding: 8px 50px;
+		letter-spacing: 2px;
+	}
+	.flood,select,.susceptability{
+		background-color: #7476c4 !important;
+	}
+	.fa-arrow-right {
+		display: none !important;
+	}
+	.fa-arrow-left {
+		display: block !important;
+	}
+	.fa-arrow-right-show {
+		display: block !important;
+	}
+	.fa-arrow-left-show {
+		display: none !important;
+	}
+
+	/* Responsive View */
+	@media screen and (max-width: 992px){
+		.map-container{
+			width: 100%;
+		}
+		.mobile,#bar{
+		display: block;
+		}
+		.desktop {
+			display: none;
+		}
+	}
+	@media screen and (max-width: 1289px){
+		.susceptability{
+			font-size: 15px;
+		}
+	
+	}
+
+@media screen and (max-width: 1242px){
+		.susceptability{
+			font-size: 14px;
+		}
+	
+	}
+
+	
