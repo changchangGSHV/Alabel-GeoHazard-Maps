@@ -1,0 +1,273 @@
+<!doctype html>
+{% load static %}
+
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'auxiliary/asset/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'auxiliary/asset/style.css' %}">
+    <link rel="icon" type="image/png" href="{% static 'auxiliary/images/mdrrmo-logo.png' %}">
+
+    {% if title %}
+      <title> Alabel GeoHazard Map - {{title}}</title>
+    {% else %}
+      <title> Alabel GeoHazard Map </title>
+    {% endif %}
+    
+  </head>
+  <body>
+    <!-- Mobile Navbar -->
+    <div class="mobile_navbar">
+      <span class="arrow text-white"><i class="fas fa-chevron-left"></i><i class="fas fa-chevron-right"></i></span>
+      <nav>
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link text-white" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white dropdown" href="#">
+              Maps&nbsp;<i class="fas fa-chevron-down"></i>
+            </a>
+            <ul class="dropdown_menu">
+              <li class="nav-item"><a class="text-white" href="{% url 'flood' %}">Flood</a></li>
+              <li class="nav-item"><a class="text-white" href="{% url 'landslide' %}">Landslide</a></li>
+            </ul>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link text-white" href="{% url 'history' %}">History</a>
+          </li>
+          
+          <li class="nav-item">
+            <a class="nav-link text-white" href="{% url 'contacts' %}">Contacts</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <!-- Desktop Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white">
+      <strong><a class="navbar-brand header-mobile" href="{% url 'home' %}"><img src="{% static 'auxiliary/images/alabel-logo.png' %}" width="80"> Alabel GeoHazard Maps</a></strong>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto mr-5">
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
+              Maps
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="{% url 'flood' %}">Flood</a>
+              <a class="dropdown-item" href="{% url 'landslide' %}">Landslide</a>
+            </div>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="{% url 'history' %}">History</a>
+          </li>
+          
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'contacts' %}">Contacts</a>
+          </li>
+        </ul>
+        
+      </div>
+      <form class="form-inline my-2 my-lg-0">
+         {% if user.is_authenticated %}
+            <button class="btn my-2 pl-4 pr-4 my-sm-0" type="submit" style="background-color: #8EB044;border-radius: 20px;"><a class="text-decoration-none login-link mobile-login-text" href="{% url 'admin:index' %}">Admin</a></button>
+          {% else %}
+            <button class="btn my-2 pl-4 pr-4 my-sm-0" type="submit" style="background-color: #8EB044;border-radius: 20px;"><a class="text-decoration-none login-link mobile-login-text" href="{% url 'admin:index' %}">Login</a></button>
+          {% endif %}
+      </form>
+    </nav>
+
+    <!-- Content -->
+    <div class="container-fluid p-0 position-relative history" style="background-color:#E8E9E7">
+
+      <h1 class="ml-3 pt-3 pb-3">GeoHazard History</h1>
+
+    </div>
+
+        <div class="physicianList">
+        <input type='hidden' id='current_page' />
+        <input type='hidden' id='show_per_page' />
+          <ul id="pagingBox">
+
+            <li>
+              <div class="physicianBox">
+
+
+              {% for history in histories %}
+                <div class="row m-0">
+                  <div class="col-md-3 col-sm-12 mt-4">
+                    <div class="card bg-transparent border-0">
+                      <div class="car-body text-center">
+                        <h3><u>{{ history.barangay_name}}</u></h3>
+                        <img src="{{ history.barangay_img.url }}" width="180" height="180" class="rounded-circle">
+                      </div>
+                    </div>
+                  </div>
+                  {% if history.barangay_info %}
+                    <div class="col-md-8 col-sm-12 mt-4" style="display: grid;place-items:center;">
+                      <div class="card bg-transparent border-0">
+                        <div class="car-body" style="text-indent: 25px;">
+                          <p style="text-align:justify;">{{ history.barangay_info|linebreaks}}</p>
+                        </div>
+                      </div>
+                    </div>
+                  {% else %}
+                    <div class="col-md-8 col-sm-12 mt-4" style="display: grid;place-items:center;">
+                      <div class="card bg-transparent border-0">
+                        <div class="car-body">
+                          <h2><i class="fa fa-pencil"></i> No Information Available </h2>
+                        </div>
+                      </div>
+                    </div>
+                  {% endif %}
+
+                </div>
+                <hr>
+                {% if history.geohazards.all %}
+                {% for hazard in history.geohazards.all %}
+                  <div class="row m-0">
+                    <div class="col-md-3 col-sm-12 mt-4">
+                      <div class="card bg-transparent border-0">
+                        <div class="car-body text-center">
+                          <img src="{{hazard.geohazard_img.url}}" height="200" width="90%">
+                        </div>
+                      </div>
+                      
+                    </div>
+                    <div class="col-md-8 col-sm-12 mt-4" style="display: grid;place-items:center;">
+                      <div class="card bg-transparent border-0">
+                        <div class="car-body">
+                          <h4>{{hazard.date_published}}</h4>
+                          <p style="text-align:justify;">{{hazard.geohazard_info}}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                {% endfor %}
+                {% else %}
+                  <h5 style="text-align:center"><i class="fa fa-folder-open" aria-hidden="true"></i> No 'GeoHazard' Data Available Yet</h5>
+                {% endif %}
+                <hr>
+
+                {% if history.assessment.all %}
+                <div class="row m-0">
+                  <div class="col-sm-8 m-auto mt-4">
+                    <div class="card bg-transparent border-0">
+                      <div class="car-body">
+                        <h4 class="text-center">GeoHazard Assessment</h4>
+                        <table class="mt-5 w-100">
+                          <thead>
+                            <tr>
+                              <th>Purok / Sitio</th>
+                              <th>Landslide Susceptibility Rating</th>
+                              <th>Flood Susceptibility Rating</th>
+                            </tr>
+                          </thead>
+                          
+                          {% for assessment in history.assessment.all %}
+                          <tbody>
+                            <tr>
+                              <td class="pt-3 pb-3">{{assessment.purok_name}}<br><small style="font-style: italic;">{{assessment.purok_coordinates}}</small></td>
+                              <td class="pt-3 pb-3">{{assessment.landslide_rating}}</td>
+                              <td class="pt-3 pb-3">{{assessment.flood_rating}}</td>
+                            </tr>
+                          </tbody>
+                          {% endfor %}    
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="text-center mt-4">
+                  <button class="btn my-2 pl-5 pr-5 my-sm-0 text-white" type="submit" style="background-color: #8EB044;border-radius: 20px;"><a class="text-white text-decoration-none" href="{% url 'admin:index' %}">VIEW MORE</a></button>
+                </div>
+
+                {% else %}
+                  <h5 style="text-align:center"><i class="fa fa-folder-open" aria-hidden="true"></i> No 'Assessment' Data Available Yet</h5>
+
+                  <div class="text-center mt-4">
+                    <button class="btn my-2 pl-5 pr-5 my-sm-0 text-white" type="submit" style="background-color: #8EB044;border-radius: 20px;">ADD ENTRY</button>
+                  </div>
+
+                {% endif %}
+              {% endfor %}
+              </div>
+            </li>
+          </ul>
+        </div>
+   
+        <!-- Table Pagination -->
+        {% if is_paginated %}
+        <span class="pagination">
+          <span class="pagination_num">
+
+          
+            {% if page_obj.has_previous %}
+              <button><a class="paginate-links" href="?page={{page_obj.previous_page_number}}">Prev</a></button>
+            {% else %}
+              <button><a class="paginate-links" href="#">Start</a></button>
+            {% endif %}
+
+            <button class="button one"><a class="paginate-links" href="?page=1">1</a></button>
+            <button class="button two"><a class="paginate-links" href="?page=2">2</a></button>
+            <button class="button three"><a class="paginate-links" href="?page=3">3</a></button>
+            <button class="button four"><a class="paginate-links" href="?page=4">4</a></button>
+            <button class="button five"><a class="paginate-links" href="?page=5">5</a></button>
+            <button class="button dot-desktop"><a class="paginate-links" href="#">...</a></button>
+            <button class="button dot-mobile"><a class="paginate-links" href="#">...</a></button>
+            <button class="button seven"><a class="paginate-links" href="?page=13">13</a></button>
+
+            {% if page_obj.has_next %}
+              <button><a class="paginate-links" href="?page={{page_obj.next_page_number}}">Next</a></button>
+            {% else %}
+              <button><a class="paginate-links" href="#">End</a></button>
+            {% endif %}
+         
+          </span>
+        </span>
+        {% endif %}
+  
+        <br>
+        <!-- Footer -->
+        <div class="container-fluid text-white p-3" style="background-color: #8EB044;">
+          <div class="row">
+            <div class="col-xl-3 col-lg-3 col-md-2 col-sm-12 mt-5 mb-3" style="text-align: justify;">
+              <h4>Mission</h4>
+              To effectively implement a Disaster Risk Reduction and Management plan through active involvement of all stakeholders in all governance, a liveable resilient community.
+            </div>
+            <div class="col-xl-3 col-lg-3 col-md-2 col-sm-12 mt-5 mb-3" style="text-align: justify;">
+              <h4>Vision</h4>
+              Alabel is a disaster resilient , pro-active and convergent stakeholders towards a safe community.
+            </div>
+            <div class="col-xl-3 col-lg-3 col-md-2 col-sm-12 mt-5 mb-3" style="text-align: justify;">
+              <h4>About The Devs</h4>
+              IT students from Mindanao State University who loves solving real-life problems using technologies. 
+            </div>
+          <div class="col-xl-3 col-lg-3 col-md-2 col-sm-12 mt-5 mb-3">
+          <h4>Follow Us:</h4>
+          <a href="https://www.facebook.com/alabel.mdrrmo" ><span class="h3 ml-1 mr-1" style="color: #1877f2;"><i class="fab fa-facebook"></i></span></a>
+          <a href="https://alabel.gov.ph/mdrrmo/" ><span class="h3 ml-1 mr-1" style="line-height: unset !important;"><img src="{% static 'auxiliary/images/alabel-logo.png' %}" width="30" style="margin-top: -7px;"></span></a>
+          <a href="#" ><span class="h3 ml-1 mr-1" style="color: #1ba1f2;"><i class="fab fa-twitter"></i></span></a>
+          <a href="https://github.com/DawnBee" ><span class="h3 ml-1 mr-1" style="color: #000;"><i class="fab fa-github"></i></span></a>
+        </div>
+          </div>
+        </div>
+
+    <div class="container-fluid text-white p-3 text-center" style="background-color: #659A5C;">
+
+  @2022 Copyright: AlabelGeoHazardMap.com</div>
+      <script src="asset/jquery.slim.min.js"></script> <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+
+    <script src="{% static 'auxiliary/asset/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'auxiliary/asset/fontawesome.js' %}"></script>
+    <script src="{% static 'auxiliary/asset/app.js' %}"></script>
+  </body>
+</html>

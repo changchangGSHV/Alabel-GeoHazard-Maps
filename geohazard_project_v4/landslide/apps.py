@@ -1,0 +1,7 @@
+from django.apps import AppConfig
+
+
+class LandslideConfig(AppConfig):
+    default_auto_field = 'django.db.models.BigAutoField'
+    name = 'landslide'
+    verbose_name = 'Landslide Map'

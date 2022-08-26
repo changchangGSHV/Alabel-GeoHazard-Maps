@@ -1,0 +1,216 @@
+<!doctype html>
+{% load static %}
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'auxiliary/asset/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'auxiliary/asset/style.css' %}">
+    <link rel="icon" type="image/png" href="{% static 'auxiliary/images/mdrrmo-logo.png' %}">
+
+    {% if title %}
+      <title> Alabel GeoHazard Map - {{title}}</title>
+    {% else %}
+      <title> Alabel GeoHazard Map </title>
+    {% endif %}
+    
+  </head>
+  <body>
+    <!-- Mobile Navbar -->
+    <div class="mobile_navbar">
+      <span class="arrow text-white"><i class="fas fa-chevron-left"></i><i class="fas fa-chevron-right"></i></span>
+      <nav>
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link text-white" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white dropdown" href="#">
+              Maps&nbsp;<i class="fas fa-chevron-down"></i>
+            </a>
+            <ul class="dropdown_menu">
+              <li class="nav-item"><a class="text-white" href="{% url 'flood' %}">Flood</a></li>
+              <li class="nav-item"><a class="text-white" href="{% url 'landslide' %}">Landslide</a></li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="{% url 'history' %}">History</a>
+          </li>
+          
+          <li class="nav-item active">
+            <a class="nav-link text-white" href="{% url 'contacts' %}">Contacts</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <!-- Desktop Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white">
+      <strong><a class="navbar-brand header-mobile" href="{% url 'home' %}"><img src="{% static 'auxiliary/images/alabel-logo.png' %}" width="80"> Alabel GeoHazard Maps</a></strong>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto mr-5">
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
+              Maps
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="{% url 'flood' %}">Flood</a>
+              <a class="dropdown-item" href="{% url 'landslide' %}">Landslide</a>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'history' %}">History</a>
+          </li>
+          
+          <li class="nav-item active">
+            <a class="nav-link" href="{% url 'contacts' %}">Contacts</a>
+          </li>
+        </ul>
+        
+      </div>
+      <form class="form-inline my-2 my-lg-0">
+          {% if user.is_authenticated %}
+            <button class="btn my-2 pl-4 pr-4 my-sm-0" type="submit" style="background-color: #8EB044;border-radius: 20px;"><a class="text-decoration-none login-link mobile-login-text" href="{% url 'admin:index' %}">Admin</a></button>
+          {% else %}
+            <button class="btn my-2 pl-4 pr-4 my-sm-0" type="submit" style="background-color: #8EB044;border-radius: 20px;"><a class="text-decoration-none login-link mobile-login-text" href="{% url 'admin:index' %}">Login</a></button>
+          {% endif %}
+      </form>
+    </nav>
+
+    <!-- Content Desktop View -->
+    <div class="container-fluid p-0 desktop" style="background-color:#E8E9E7">
+      
+      <h1 class="ml-3 pt-3 pb-3">Contacts</h1>
+
+      <div class="row ml-0 mr-0 bg-white">
+        <div class="col-xl-4 col-lg-4 col-md-12">
+          <div class="card border-0 p-4 bg-transparent">
+            <div class="card-body m-auto">
+              <img src="{% static 'auxiliary/images/mdrrmo-logo.jpg' %}" class="rounded-circle" width="200">
+              <h4 class="mt-2">MDRRMO HOTLINES:</h4>
+              {% for hotline in mdrrm_office %}
+                <p class="mb-0">{{hotline.channel_type}} - {{hotline.contact_num}}</p>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-8 col-lg-8 col-md-12">
+          <div class="card border-0 p-4 bg-transparent">
+            <div class="card-body">
+              <h4>MDRRMO</h4>
+              <p class="mt-5" style="text-align:justify;text-indent:25px;"> The primary objective of MDRRMO (Municipal Disaster Risk Reduction and Management Office) is to ensure effective and efficient implementation of civil protection programme through an integrated, multi-sectoral and community based approach and strategies for the protection and preservation of life, property and environment.</p>
+              <div class="text-center"><button class="btn text-white pl-5 pr-5 mt-5" style="background-color: #8EB044;border-radius: 20px;"><a class="text-decoration-none text-white" href="https://www.facebook.com/alabel.mdrrmo">VIEW PAGE</a></button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row ml-0 mr-0 bg-white border-top">
+        <div class="col-xl-4 col-lg-4 col-md-12">
+          <div class="card border-0 p-4 bg-transparent">
+            <div class="card-body m-auto">
+              <img src="{% static 'auxiliary/images/alabel-IT.png' %}" class="rounded-circle" width="200">
+              <h4 class="mt-2">EMERGENCY HOTLINES:</h4>
+              {% for hotline in alabel_info_office %}
+                <p class="mb-0">{{hotline.channel_type}} - {{hotline.contact_num}}</p>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-8 col-lg-8 col-md-12">
+          <div class="card border-0 p-4 bg-transparent">
+            <div class="card-body">
+              <h4>Alabel Information Office</h4>
+              <p class="mt-5" style="text-align:justify;text-indent:25px;"> This is the Official Information and Communication Facebook Page of Alabel managed by the Office of the Municipal Mayor through the support of the various departments of the Local government Unit of Alabel, capital town of Sarangani Province.</p>
+              <div class="text-center"><button class="btn text-white pl-5 pr-5 mt-5" style="background-color: #8EB044;border-radius: 20px;"><a class="text-decoration-none text-white" href="https://www.facebook.com/AlabelPIO">VIEW PAGE</a></button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Content Mobile View -->
+    <div class="container-fluid p-0 mobile" style="background-color:#E8E9E7">
+      
+      <h1 class="ml-3 pt-3 pb-3">Contacts</h1>
+
+      <div class="row ml-0 mr-0 bg-white">
+        <div class="col-md-12">
+          <div class="card border-0 p-4 bg-transparent">
+             <h4>MDRRMO</h4>
+              <p class="mt-5" style="text-align:justify;text-indent:25px;"> The primary objective of MDRRMO (Municipal Disaster Risk Reduction and Management Office) is to ensure effective and efficient implementation of civil protection programme through an integrated, multi-sectoral and community based approach and strategies for the protection and preservation of life, property and environment.</p>
+            <div class="card-body m-auto">
+             
+              <img src="{% static 'auxiliary/images/mdrrmo-logo.jpg' %}" class="rounded-circle" width="200">
+              <h4 class="mt-2">MDRRMO HOTLINES:</h4>
+              {% for hotline in mdrrm_office %}
+                <p class="mb-0">{{hotline.channel_type}} - {{hotline.contact_num}}</p>
+              {% endfor %}
+              <div class="text-center"><button class="btn text-white pl-5 pr-5 mt-5" style="background-color: #8EB044;border-radius: 20px;"><a class="text-decoration-none text-white" href="https://www.facebook.com/alabel.mdrrmo"></a>VIEW PAGE</button></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="row ml-0 mr-0 bg-white border-top">
+        <div class="col-md-12">
+          <div class="card border-0 p-4 bg-transparent">
+            <h4>Alabel Information Office</h4>
+              <p class="mt-5" style="text-align:justify;text-indent:25px;"> This is the Official Information and Communication Facebook Page of Alabel managed by the Office of the Municipal Mayor through the support of the various departments of the Local government Unit of Alabel, capital town of Sarangani Province.</p>
+            <div class="card-body m-auto">
+              <img src="{% static 'auxiliary/images/alabel-IT.png' %}" class="rounded-circle" width="200">
+              <h4 class="mt-2">EMERGENCY HOTLINES:</h4>
+              {% for hotline in alabel_info_office %}
+                <p class="mb-0">{{hotline.channel_type}} - {{hotline.contact_num}}</p>
+              {% endfor %}
+              <div class="text-center"><button class="btn text-white pl-5 pr-5 mt-5" style="background-color: #8EB044;border-radius: 20px;"><a class="text-decoration-none text-white" href="https://www.facebook.com/AlabelPIO">VIEW PAGE</a></button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <br>
+    <!-- Footer -->
+    <div class="container-fluid text-white p-3" style="background-color: #8EB044;">
+      <div class="row">
+        <div class="col-xl-3 col-lg-3 col-md-2 col-sm-12 mt-5 mb-3" style="text-align: justify;">
+          <h4>Mission</h4>
+          To effectively implement a Disaster Risk Reduction and Management plan through active involvement of all stakeholders in all governance, a liveable resilient community.
+        </div>
+        <div class="col-xl-3 col-lg-3 col-md-2 col-sm-12 mt-5 mb-3" style="text-align: justify;">
+          <h4>Vision</h4>
+          Alabel is a disaster resilient , pro-active and convergent stakeholders towards a safe community.
+        </div>
+        <div class="col-xl-3 col-lg-3 col-md-2 col-sm-12 mt-5 mb-3" style="text-align: justify;">
+          <h4>About The Devs</h4>
+          IT students from Mindanao State University who loves solving real-life problems using technologies. 
+        </div>
+        <div class="col-xl-3 col-lg-3 col-md-2 col-sm-12 mt-5 mb-3">
+          <h4>Follow Us:</h4>
+          <a href="https://www.facebook.com/alabel.mdrrmo" ><span class="h3 ml-1 mr-1" style="color: #1877f2;"><i class="fab fa-facebook"></i></span></a>
+          <a href="https://alabel.gov.ph/mdrrmo/" ><span class="h3 ml-1 mr-1" style="line-height: unset !important;"><img src="{% static 'auxiliary/images/alabel-logo.png' %}" width="30" style="margin-top: -7px;"></span></a>
+          <a href="#" ><span class="h3 ml-1 mr-1" style="color: #1ba1f2;"><i class="fab fa-twitter"></i></span></a>
+          <a href="https://github.com/DawnBee" ><span class="h3 ml-1 mr-1" style="color: #000;"><i class="fab fa-github"></i></span></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-fluid text-white p-3 text-center" style="background-color: #659A5C;position: relative;">
+      <!-- Easter Egg -->
+      <a class="text-decoration-none" href="https://youtu.be/dQw4w9WgXcQ">.</a>
+    @2022 Copyright: AlabelGeoHazardMap.com</div>
+
+    <script src="{% static 'auxiliary/asset/jquery.slim.min.js' %}"></script>
+    <script src="{% static 'auxiliary/asset/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'auxiliary/asset/fontawesome.js' %}"></script>
+    <script src="{% static 'auxiliary/asset/app.js' %}"></script>
+  </body>
+</html>

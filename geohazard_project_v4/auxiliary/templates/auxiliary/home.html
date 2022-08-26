@@ -1,0 +1,132 @@
+<!doctype html>
+{% load static %}
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'auxiliary/asset/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'auxiliary/asset/style.css' %}">
+    <link rel="icon" type="image/png" href="{% static 'auxiliary/images/mdrrmo-logo.png' %}">
+
+    {% if title %}
+      <title> Alabel GeoHazard Map - {{title}}</title>
+    {% else %}
+      <title> Alabel GeoHazard Map </title>
+    {% endif %}
+    
+  </head>
+  <body>
+    <!-- Mobile Navbar -->
+    <div class="mobile_navbar">
+      <span class="arrow text-white"><i class="fas fa-chevron-left"></i><i class="fas fa-chevron-right"></i></span>
+      <nav>
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+            <a class="nav-link text-white" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white dropdown" href="#">
+              Maps&nbsp;<i class="fas fa-chevron-down"></i>
+            </a>
+            <ul class="dropdown_menu">
+              <li class="nav-item"><a class="text-white" href="{% url 'flood' %}">Flood</a></li>
+              <li class="nav-item"><a class="text-white" href="{% url 'landslide' %}">Landslide</a></li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="{% url 'history' %}">History</a>
+          </li>
+          
+          <li class="nav-item">
+            <a class="nav-link text-white" href="{% url 'contacts' %}">Contacts</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <!-- Desktop Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white">
+      <strong><a class="navbar-brand header-mobile" href="{% url 'home' %}"><img src="{% static 'auxiliary/images/alabel-logo.png' %}" width="80"> Alabel GeoHazard Maps</a></strong>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto mr-5">
+          <li class="nav-item active">
+            <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
+              Maps
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="{% url 'flood' %}">Flood</a>
+              <a class="dropdown-item" href="{% url 'landslide' %}">Landslide</a>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'history' %}">History</a>
+          </li>
+          
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'contacts' %}">Contacts</a>
+          </li>
+        </ul>
+        
+      </div>
+      <form class="form-inline my-2 my-lg-0">
+          {% if user.is_authenticated %}
+            <button class="btn my-2 pl-4 pr-4 my-sm-0" type="submit" style="background-color: #8EB044;border-radius: 20px;"><a class="text-decoration-none login-link mobile-login-text" href="{% url 'admin:index' %}">Admin</a></button>
+          {% else %}
+            <button class="btn my-2 pl-4 pr-4 my-sm-0" type="submit" style="background-color: #8EB044;border-radius: 20px;"><a class="text-decoration-none login-link mobile-login-text" href="{% url 'admin:index' %}">Login</a></button>
+          {% endif %}
+      </form>
+    </nav>
+    <!-- Content -->
+    <div class="container-fluid p-0 position-relative">
+      
+      <img class="Alabel" src="{% static 'auxiliary/images/Alabel.jpg' %}"width="100%">
+      
+      <div class="col-lg-4 col-md-6 col-sm-12 home_content_position" style="position: absolute;top: 55%;transform: translateY(-55%);right: 100px;">
+      
+          <p style="font-size: 25px;text-align: justify;" class="text-white">To Effectively implement Disaster Risk Reduction and Management plan through active involvement of all stakeholders in all governance, a liveable resilient community.</p>
+    
+      </div>
+
+    </div>
+
+    <!-- Footer -->
+    <div class="container-fluid text-white p-3" style="background-color: #8EB044;">
+      <div class="row">
+        <div class="col-xl-3 col-lg-3 col-md-2 col-sm-12 mt-5 mb-3" style="text-align: justify;">
+          <h4>Mission</h4>
+          To effectively implement a Disaster Risk Reduction and Management plan through active involvement of all stakeholders in all governance, a liveable resilient community.
+        </div>
+        <div class="col-xl-3 col-lg-3 col-md-2 col-sm-12 mt-5 mb-3" style="text-align: justify;">
+          <h4>Vision</h4>
+          Alabel is a disaster resilient , pro-active and convergent stakeholders towards a safe community.
+        </div>
+        <div class="col-xl-3 col-lg-3 col-md-2 col-sm-12 mt-5 mb-3" style="text-align: justify;">
+          <h4>About The Devs</h4>
+          IT students from Mindanao State University who loves solving real-life problems using technologies. 
+        </div>
+        <div class="col-xl-3 col-lg-3 col-md-2 col-sm-12 mt-5 mb-3">
+          <h4>Follow Us:</h4>
+          <a href="https://www.facebook.com/alabel.mdrrmo" ><span class="h3 ml-1 mr-1" style="color: #1877f2;"><i class="fab fa-facebook"></i></span></a>
+          <a href="https://alabel.gov.ph/mdrrmo/" ><span class="h3 ml-1 mr-1" style="line-height: unset !important;"><img src="{% static 'auxiliary/images/alabel-logo.png' %}" width="30" style="margin-top: -7px;"></span></a>
+          <a href="#" ><span class="h3 ml-1 mr-1" style="color: #1ba1f2;"><i class="fab fa-twitter"></i></span></a>
+          <a href="https://github.com/DawnBee" ><span class="h3 ml-1 mr-1" style="color: #000;"><i class="fab fa-github"></i></span></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-fluid text-white p-3 text-center" style="background-color: #659A5C;">
+
+  @2022 Copyright: AlabelGeoHazardMap.com</div>
+
+    <script src="{% static 'auxiliary/asset/jquery.slim.min.js' %}"></script>
+    <script src="{% static 'auxiliary/asset/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'auxiliary/asset/fontawesome.js' %}"></script>
+    <script src="{% static 'auxiliary/asset/app.js' %}"></script>
+  </body>
+</html>

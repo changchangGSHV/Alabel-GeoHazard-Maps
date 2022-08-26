@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+{% extends 'auxiliary/base_map.html' %}
+{% load static %}
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
+<body>
+	<!-- map -->
+	{% block map %}
+		{{landslide_map | safe}}
+	{% endblock map %}
+
+	<!-- header mobile -->
+	{% block header_mobile %}
+		<div class="card-body">
+	      <button class="pb-3 btn landslide_button_mobile text-white form-control" style="background-color: #8EB044;font-size: 1.4rem;">LANDSLIDE</button>
+	    </div>
+	{% endblock header_mobile %}
+
+	<!-- header desktop -->
+	{% block header_desktop %}
+		<button class="pb-3 btn landslide_button_desktop text-white form-control" style="background-color: #8EB044;font-size: 1.4rem;">LANDSLIDE</button>
+	{% endblock header_desktop %}
+
+	<!-- landslide susceptibility desktop  -->
+	{% block susceptibility_content %}
+	   <div class="card-body border bg-white mt-4 mb-4">
+          <h4 class="text-center" style="font-size: 1.2rem;">LANDSLIDE SUSCEPTIBILITY</h4>
+          <hr>
+          <div class="row">
+            <div class="col-sm-12 mt-3">
+              <div class="card border-0">
+                <div class="card-body">
+                  <div style="display: flex;place-items:center;">
+                    <img src="{% static 'auxiliary/images/geo-blocks/lands-very-high-block.jpg' %}" width="50" height="50">&nbsp;<div class="text-justify" style="margin-left: 10px;">Very High<br><small>Areas usually with steep to very steep slopes and underlain by weak minerals. Recent landslides, escarpments and tension cracks are present. Human initiated effects could be an aggrevating factor.</small></div>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div style="display: flex;place-items:center;">
+                    <img src="{% static 'auxiliary/images/geo-blocks/lands-high-block.jpg' %}" width="50" height="50">&nbsp;<div class="text-justify" style="margin-left: 10px;">High<br><small>Areas usually with steep to very steep slopes and underlain by weak minerals. Areas with numerous old/inactive landslides.</small></div>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div style="display: flex;place-items:center;">
+                    <img src="{% static 'auxiliary/images/geo-blocks/lands-mod-block.jpg' %}" width="50" height="50">&nbsp;<div class="text-justify" style="margin-left: 10px;">Moderate<br><small>Areas with moderately steep slopes. Soil creep and other indications of possible landslide occurence are present.</small></div>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div style="display: flex;place-items:center;">
+                    <img src="{% static 'auxiliary/images/geo-blocks/lands-low-block.jpg' %}" width="50" height="50">&nbsp;<div class="text-justify" style="margin-left: 10px;">Low<br><small>Gently sloping areas with no identified landslide.</small></div>
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+	{% endblock susceptibility_content %}
+
+  <!-- guidelines tab -->
+  {% block guidelines %}
+    {% for guide in guidelines %}
+      <div class="container p-4 bg-white mt-3">
+        <h5>{{guide.alert_level}}</h5>
+        <p style="text-align: justify;">{{guide.alert_level_guide|linebreaks}}</p>
+      </div>
+    {% endfor %}
+  {% endblock guidelines %}
+
+  <!-- procedures tab -->
+  {% block procedures %}
+    {% for procedure in procedures %}
+     <div class="container p-4 bg-white mt-3">
+       <h5>{{procedure.procedure_name}}</h5>
+        <p style="text-align: justify;">{{procedure.procedure_content|linebreaks}}</p>
+      </div>
+    {% endfor %}
+  {% endblock procedures %}
+
+  <!-- announcements tab -->
+  {% block announcements %}
+    {% for post in announcements %}
+      {% if post.announ_image  %}
+        <div class="container p-4 bg-white mt-3">
+          <img src="{{post.announ_image.url}}" class="mx-auto d-block border rounded p-2" height="200" width="100%">
+          <h5 class="pt-3">{{post.title}}</h5>
+          <small>{{post.date_posted|date:"F d, Y"}}</small>
+          <p style="text-align: justify;">{{post.content|linebreaks}}</p>
+        </div>
+      {% else %}
+        <div class="container p-4 bg-white mt-3">
+          <h5 class="pt-3">{{post.title}}</h5>
+          <small>{{post.date_posted|date:"F d, Y"}}</small>
+          <p style="text-align: justify;">{{post.content|linebreaks}}</p>
+        </div>
+      {% endif %}
+    {% endfor %}
+  {% endblock announcements %}
+
+</body>
+</html>
