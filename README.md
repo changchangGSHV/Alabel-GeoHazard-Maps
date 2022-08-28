@@ -12,3 +12,21 @@ and the library "Folium".</p>
 in the images below; but each marker has a unique popup description when clicked.</p>
   
 <img src="images/Flood_Map.png" width=500> <img src="images/Landslide_Map.png" width=500>
+
+We couldn't have pulled this off without the helped of the following people: 
+* Sohanur Rahman Shanto
+* Christian Glory
+* Bernhard Vallant
+* Maxim Danilov
+* KenWhitesell
+* Jethro Sedoguio
+
+Reddit Users:
+* shiuidu
+* imjustnoob45
+* Narfi1
+* welcome_cumin
+* Boryalyc
+* mca62511
+
+We're tremendously grateful to you all!
